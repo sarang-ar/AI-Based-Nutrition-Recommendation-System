@@ -1,188 +1,198 @@
-<div align="center">
+# 🧠 AI-Based Nutrition Recommendation System
 
-[![CI](https://github.com/zakaria-narjis/nutrimind/actions/workflows/ci.yml/badge.svg)](https://github.com/zakaria-narjis/nutrimind/actions/workflows/ci.yml) [![DOI](https://zenodo.org/badge/582718021.svg)](https://zenodo.org/doi/10.5281/zenodo.12507163) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-
-</div>
-
-<h1 align="center">NutriMind</h1>
-<div align="center">
-  <img src="Assets/logo_front_page.png" />
-  <h4>A content-based diet recommendation web app built with Scikit-Learn, FastAPI, and Streamlit.</h4>
-</div>
+An intelligent full-stack web application that generates **personalized diet plans** based on user health data and preferences using **AI techniques and nutritional analysis**.
 
 ---
 
-## Table of Contents
+## 🚀 Project Overview
 
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [How It Works](#how-it-works)
-- [Tech Stack](#tech-stack)
-- [Setup](#setup)
-- [API Reference](#api-reference)
-- [Dataset](#dataset)
-- [Citation](#citation)
+This project recommends meals by analyzing user inputs such as:
 
----
+* Age, weight, height
+* Activity level
+* Fitness goals (weight loss, maintenance, gain)
+* Dietary preferences
 
-## Star History
+The system calculates:
 
-[![Star History Chart](https://api.star-history.com/image?repos=zakaria-narjis/nutrimind&type=date&legend=top-left)](https://www.star-history.com/?repos=zakaria-narjis%2Fnutrimind&type=date&legend=top-left)
+* **BMI (Body Mass Index)**
+* **BMR (Basal Metabolic Rate)**
+* **TDEE (Total Daily Energy Expenditure)**
 
----
-
-## Overview
-
-A full-stack diet recommendation system that generates personalized meal plans based on user health data (age, weight, height, activity level) or custom nutritional targets. The recommendation engine uses a content-based approach with cosine similarity over nutritional vectors to find the closest matching recipes from a dataset of 500,000+ Food.com recipes.
-
-**Key features:**
-- Automatic meal plan generation from personal health metrics (BMI, BMR, TDEE)
-- Custom food search by nutritional values and ingredients
-- Configurable weight loss plans (maintain, mild, moderate, extreme)
-- Interactive nutritional breakdown charts
+Then it uses a **content-based recommendation system (cosine similarity)** to suggest meals from a large food dataset.
 
 ---
 
-## Architecture
+## ✨ Features
 
-<div align="center"><img src="Assets/Architecture_diagram.png" width="600" height="400" alt="Architecture diagram"/></div>
-
----
-
-## How It Works
-
-### Recommendation Engine
-
-Recipes are embedded as 9-dimensional nutritional vectors (Calories, Fat, Saturated Fat, Cholesterol, Sodium, Carbohydrates, Fiber, Sugar, Protein). A `NearestNeighbors` model with cosine similarity finds the closest recipes to a given target vector.
-
-### Automatic Meal Plan (`/generate-meal-plan/`)
-
-1. **BMI** — weight(kg) / height(m)²
-2. **BMR** — Mifflin-St Jeor equation
-3. **TDEE** — BMR × activity multiplier
-4. **Target calories** — TDEE × weight-loss factor
-5. Calories are distributed across meals (35/40/25% for 3 meals, etc.)
-6. Per-meal nutrition vectors are sampled from physiologically appropriate ranges and passed to the nearest-neighbor model
-
-### Ingredient Filtering
-
-At startup, each recipe's ingredient list is pre-parsed into a `frozenset` of lowercase strings. Filtering then uses set-based substring matching — no regex scanning on every request.
-
-### Content-Based Approach
-
-| Advantage | Note |
-|-----------|------|
-| No cold-start problem | Works without any user history |
-| Transparent recommendations | Results are directly tied to nutritional targets |
-| No inter-user data needed | Fully self-contained per request |
+* 🥗 Personalized meal plan generation
+* 📊 Nutritional analysis (calories, protein, carbs, fats)
+* ⚙️ Custom diet filtering (veg/non-veg, ingredients)
+* 🤖 AI-based recommendation engine
+* 🌐 Full-stack architecture (Frontend + Backend)
+* 📦 Dockerized deployment
+* 📈 Scalable and efficient for large datasets
 
 ---
 
-## Tech Stack
+## 🏗️ Tech Stack
 
-| Component | Technology |
-|-----------|-----------|
-| Backend API | FastAPI 0.115, Python 3.12 |
-| ML / Recommendation | scikit-learn 1.4 (NearestNeighbors, cosine) |
-| Data processing | pandas 2.2, numpy 1.26 |
-| Frontend | Streamlit 1.35 |
-| Charts | streamlit-echarts 0.4 |
-| Containerization | Docker, Docker Compose |
+### 🔹 Frontend
 
-![](https://img.icons8.com/color/48/null/python--v1.png)![](https://img.icons8.com/color/48/null/numpy.png)![](Assets/streamlit-icon-48x48.png)![](Assets/fastapi.ico)![](Assets/scikit-learn.ico)![](https://img.icons8.com/color/48/null/pandas.png)
+* React (TypeScript)
+* Tailwind CSS (optional if used)
+
+### 🔹 Backend
+
+* FastAPI (Python)
+* REST API architecture
+
+### 🔹 AI / Data Processing
+
+* Pandas, NumPy
+* Cosine Similarity (content-based filtering)
+* Nutrition dataset (Food.com / USDA)
+
+### 🔹 DevOps & Tools
+
+* Docker & Docker Compose
+* Git & GitHub
 
 ---
 
-## Setup
+## 🧠 How It Works
 
-### Prerequisites
+1. User inputs personal health data
+2. Backend calculates:
 
-- [Docker](https://docs.docker.com/get-docker/) and Docker Compose
+   * BMI
+   * BMR
+   * TDEE
+3. Nutritional requirements are determined
+4. Food dataset is converted into feature vectors
+5. Cosine similarity is used to find best matches
+6. System returns optimized meal plan
 
-### Run with Docker Compose
+---
 
-**Option A — Use pre-built images** (fastest, no build step):
+## 📂 Project Structure
+
+```
+nutrimind/
+│
+├── FastAPI_Backend/        # Backend API
+│   ├── main.py
+│   ├── requirements.txt
+│
+├── react_frontend/         # Frontend UI
+│   ├── src/
+│   ├── package.json
+│
+├── docker-compose.yml      # Multi-container setup
+├── food-recommendation-system.ipynb
+├── README.md
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 🔧 Prerequisites
+
+* Python 3.8+
+* Node.js
+* Docker (optional)
+
+---
+
+### ▶️ Run Backend
 
 ```bash
-git clone https://github.com/zakaria-narjis/nutrimind
-cd nutrimind
-docker compose pull
-docker compose up -d
+cd FastAPI_Backend
+pip install -r requirements.txt
+uvicorn main:app --reload
 ```
 
-**Option B — Build from source**:
+---
+
+### ▶️ Run Frontend
 
 ```bash
-git clone https://github.com/zakaria-narjis/nutrimind
-cd nutrimind
-docker compose up --build -d
-```
-
-Open **http://localhost:8501** in your browser.
-
-> The frontend waits for the backend health check to pass before starting. The backend loads the ~95MB dataset at startup, so the first boot takes ~30–60 seconds.
-
-### Hosted Version
-
-https://diet-recommendation-system.streamlit.app/
-
----
-
-## API Reference
-
-Interactive docs are available at **http://localhost:8080/docs** when the backend is running.
-
-### `POST /generate-meal-plan/`
-
-Generates a full daily meal plan from personal health data.
-
-**Request body:**
-```json
-{
-  "age": 28,
-  "height": 175,
-  "weight": 70,
-  "gender": "Male",
-  "activity": "Moderate exercise (3-5 days/wk)",
-  "number_of_meals": 3,
-  "weight_loss": "Maintain weight"
-}
-```
-
-**Response:** BMI, BMR, daily calorie targets, and recommended recipes per meal.
-
-### `POST /predict/`
-
-Finds recipes matching a custom 9-value nutrition vector with optional ingredient filtering.
-
-**Request body:**
-```json
-{
-  "nutrition_input": [500, 20, 3, 50, 800, 60, 8, 5, 30],
-  "ingredients": ["chicken", "garlic"],
-  "params": {"n_neighbors": 5, "return_distance": false}
-}
+cd react_frontend
+npm install
+npm start
 ```
 
 ---
 
-## Dataset
+### 🐳 Run with Docker
 
-Food.com recipes dataset — 500,000+ recipes from [Kaggle](https://www.kaggle.com/datasets/irkaal/foodcom-recipes-and-reviews?select=recipes.csv).
+```bash
+docker-compose up --build
+```
 
 ---
 
-## Citation
+## 📊 Dataset
 
-```bibtex
-@software{narjis_2024_12507829,
-  author       = {Narjis, Zakaria},
-  title        = {Diet recommendation system},
-  month        = jun,
-  year         = 2024,
-  publisher    = {Zenodo},
-  version      = {v1.0.1},
-  doi          = {10.5281/zenodo.12507829},
-  url          = {https://doi.org/10.5281/zenodo.12507829}
-}
+Due to size limitations, datasets are not included in this repository.
+
+👉 You can download from:
+
+* USDA FoodData Central
+* Food.com dataset
+
+After downloading, place them in:
+
 ```
+Data/
+FoodData/
+```
+
+---
+
+## 📈 Example Output
+
+* Daily calorie target
+* Recommended meals
+* Nutritional breakdown
+* Alternative food suggestions
+
+---
+
+## 🚧 Future Improvements
+
+* 🔥 Deep learning-based recommendations
+* 📱 Mobile app version
+* 🧬 Health condition-based diet (diabetes, PCOS, etc.)
+* 💬 Chat-based AI nutrition assistant
+* 📊 Dashboard with analytics
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+Feel free to fork the repo and submit a pull request.
+
+---
+
+## 📜 License
+
+This project is for educational purposes.
+
+---
+
+## 👨‍💻 Author
+
+**Sarang AR**
+
+* GitHub: https://github.com/sarang-ar
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub!
+
+---
