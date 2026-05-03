@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { Leaf, Dumbbell, Search } from "lucide-react";
+import { Leaf, Dumbbell, Search, Bot } from "lucide-react";
 
 const navItems = [
   { to: "/", label: "Home", icon: Leaf },
   { to: "/diet", label: "Diet Plan", icon: Dumbbell },
+  { to: "/chat", label: "AI Assistant", icon: Bot },
   { to: "/custom", label: "Custom Search", icon: Search },
 ];
 

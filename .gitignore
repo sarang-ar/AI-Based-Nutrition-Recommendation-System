@@ -1,4 +1,9 @@
-__pycache__
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Specific ignores
 FastAPI_Backend/test.py
 FastAPI_Backend/keys.py
 FastAPI_Backend/data.py
@@ -7,3 +12,25 @@ test.ipynb
 .coverage
 CLAUDE.md
 .claudeignore
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# Frontend / Node
+node_modules/
+dist/
+build/
+.next/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary / Scratch files
+FastAPI_Backend/scratch_test.py
+Data/
+FoodData/

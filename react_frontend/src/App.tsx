@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Index from "./pages/Index";
 import DietRecommendation from "./pages/DietRecommendation";
 import CustomFoodRecommendation from "./pages/CustomFoodRecommendation";
+import ChatMealPlan from "./pages/ChatMealPlan";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/diet" element={<DietRecommendation />} />
           <Route path="/custom" element={<CustomFoodRecommendation />} />
+          <Route path="/chat" element={<ChatMealPlan />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
